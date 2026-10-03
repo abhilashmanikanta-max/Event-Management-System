@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Management System | College DBMS Project</title>
+  
+  <!-- Modern Clean Typography & Styling -->
+  <link rel="stylesheet" href="/static/css/styles.css">
+  
+  <!-- Chart.js for Visualizations -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <!-- Floating Toast Notifications -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <div class="app-container">
+
+    <!-- ==========================================
+         SIDEBAR NAVIGATION
+         ========================================== -->
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <div class="brand-icon">🎟️</div>
+        <div class="brand-text">
+          <h1>EVENT SYSTEM</h1>
+          <p>COLLEGE DBMS PROJECT</p>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Core Modules</div>
+        <a class="nav-item active" data-page="dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+          <span>Dashboard</span>
+        </a>
+        <a class="nav-item" data-page="events">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <span>Events</span>
+        </a>
+        <a class="nav-item" data-page="organizers">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span>Organizers</span>
+        </a>
+        <a class="nav-item" data-page="venues">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>Venues</span>
+        </a>
+        <a class="nav-item" data-page="categories">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          <span>Categories</span>
+        </a>
+        <a class="nav-item" data-page="participants">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span>Participants</span>
+        </a>
+        <a class="nav-item" data-page="registrations">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <span>Registrations</span>
+        </a>
+        <a class="nav-item" data-page="payments">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <span>Payments</span>
+        </a>
+
+        <div class="nav-section-title">DBMS Demonstrations</div>
+        <a class="nav-item" data-page="reports">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+          <span>SQL Reports</span>
+        </a>
+        <a class="nav-item" data-page="database-tables">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          <span>Database Tables</span>
+          <span class="nav-badge">Live SQL</span>
+        </a>
+        <a class="nav-item" data-page="er-diagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="6" height="6" rx="1"/><rect x="16" y="2" width="6" height="6" rx="1"/><rect x="9" y="16" width="6" height="6" rx="1"/><path d="M5 8v4a2 2 0 0 0 2 2h5"/><path d="M19 8v4a2 2 0 0 1-2 2h-5"/><path d="M12 14v2"/></svg>
+          <span>ER Diagram</span>
+        </a>
+        <a class="nav-item" data-page="sql-console">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+          <span>SQL Console</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="db-status-badge">
+          <span id="dbBadgeDot" class="status-dot"></span>
+          <span id="dbBadgeText">SQL Engine Active</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ==========================================
+         MAIN WRAPPER
+         ========================================== -->
+    <div class="main-wrapper">
+      
+      <!-- Top Header -->
+      <header class="top-header">
+        <div class="header-left">
+          <button id="mobileMenuBtn" class="mobile-menu-btn">&#9776;</button>
+          <div class="page-title-group">
+            <h2 id="headerTitle">Dashboard Overview</h2>
+            <p id="headerDesc">Real-time DBMS metrics calculated from SQL</p>
+          </div>
+        </div>
+        <div class="header-right">
+          <button class="btn btn-secondary btn-sm" onclick="promptResetDatabase()" title="Drop and re-seed all tables">
+            🔄 Reset Database
+          </button>
+          <button class="btn btn-primary btn-sm" onclick="openAddEventModal()">
+            + New Event
+          </button>
+        </div>
+      </header>
+
+      <!-- Content Body -->
+      <main class="content-body">
+
+        <!-- ==========================================
+             1. DASHBOARD SECTION
+             ========================================== -->
+        <section id="section-dashboard" class="page-section active">
+          <!-- 7 SQL Metric Cards -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-info">
+                <h3>Total Events</h3>
+                <div class="stat-value" id="statEvents">--</div>
+                <div class="stat-meta">Active schedules in DB</div>
+              </div>
+              <div class="stat-icon blue">📅</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-info">
+                <h3>Organizers</h3>
+                <div class="stat-value" id="statOrganizers">--</div>
+                <div class="stat-meta">Hosting entities</div>
+              </div>
+              <div class="stat-icon purple">🏢</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-info">
+                <h3>Venues</h3>
+                <div class="stat-value" id="statVenues">--</div>
+                <div class="stat-meta">Halls & Auditoriums</div>
+              </div>
+              <div class="stat-icon green">📍</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-info">
+                <h3>Categories</h3>
+                <div class="stat-value" id="statCategories">--</div>
+                <div class="stat-meta">Classification genres</div>
+              </div>
+              <div class="stat-icon cyan">🏷️</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-info">
+                <h3>Participants</h3>
+                <div class="stat-value" id="statParticipants">--</div>
+                <div class="stat-meta">Registered attendees</div>
+              </div>
+              <div class="stat-icon amber">👥</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-info">
+                <h3>Registrations</h3>
+                <div class="stat-value" id="statRegistrations">--</div>
+                <div class="stat-meta">Booked attendee seats</div>
+              </div>
+              <div class="stat-icon indigo">📝</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-info">
+                <h3>Total Revenue</h3>
+                <div class="stat-value" id="statPayments">--</div>
+                <div class="stat-meta">Sum(Amount) in SQL</div>
+              </div>
+              <div class="stat-icon rose">💳</div>
+            </div>
+          </div>
+
+          <!-- Charts Grid -->
+          <div class="charts-grid">
+            <div class="chart-card">
+              <h4>Events by Category</h4>
+              <p>Count of scheduled events grouped by Category (SQL GROUP BY)</p>
+              <div class="chart-container"><canvas id="chartCategory"></canvas></div>
+            </div>
+            <div class="chart-card">
+              <h4>Registrations per Event</h4>
+              <p>Top event bookings count (SQL JOIN & GROUP BY)</p>
+              <div class="chart-container"><canvas id="chartRegistrations"></canvas></div>
+            </div>
+            <div class="chart-card">
+              <h4>Payment Status Distribution</h4>
+              <p>Completed vs Pending vs Failed transactions</p>
+              <div class="chart-container"><canvas id="chartPaymentStatus"></canvas></div>
+            </div>
+            <div class="chart-card">
+              <h4>Venue Utilization</h4>
+              <p>Attendee volume vs venue seating capacity</p>
+              <div class="chart-container"><canvas id="chartVenueUtil"></canvas></div>
+            </div>
+          </div>
+
+          <!-- Upcoming Events Card -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-header-left">
+                <h3>Upcoming Scheduled Events</h3>
+                <p>Retrieved from Event table joined with Organizer, Venue, and Category</p>
+              </div>
+              <div class="card-actions">
+                <button class="btn btn-secondary btn-sm" onclick="navigateTo('events')">View All Events &rarr;</button>
+              </div>
+            </div>
+            <div class="card-body" style="padding: 0;">
+              <div class="table-responsive">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Event Name</th>
+                      <th>Category</th>
+                      <th>Date & Time</th>
+                      <th>Venue</th>
+                      <th>Organizer</th>
+                    </tr>
+                  </thead>
+                  <tbody id="dashboardUpcomingTable">
+                    <tr><td colspan="5" class="text-center">Loading SQL records...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             2. EVENTS SECTION
+             ========================================== -->
+        <section id="section-events" class="page-section">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-header-left">
+                <h3>Event Management</h3>
+                <p>Manage SQL Event records with Foreign Keys to Organizer, Venue, and Category</p>
+              </div>
+              <div class="card-actions">
+                <button class="btn btn-primary" onclick="openAddEventModal()">+ Add New Event</button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-filter-bar">
+                <div class="filter-group">
+                  <div class="search-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <input type="text" id="eventsSearch" placeholder="Search event, organizer, venue...">
+                  </div>
+                  <select id="eventsCategoryFilter" class="filter-select">
+                    <option value="">All Categories</option>
+                  </select>
+                  <input type="date" id="eventsDateFilter" class="filter-date">
+                </div>
+                <div>
+                  <button class="btn btn-secondary btn-sm" onclick="loadEvents()">Refresh Data</button>
+                </div>
+              </div>
+
+              <div class="table-responsive">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Event Name</th>
+                      <th>Date</th>
+                      <th>Time</th>
+                      <th>Organizer</th>
+                      <th>Venue</th>
+                      <th>Category</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="eventsTableBody">
+                    <tr><td colspan="8" class="text-center">Loading...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div id="eventsPagination" class="pagination-wrapper"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             3. ORGANIZERS SECTION
+             ========================================== -->
+        <section id="section-organizers" class="page-section">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-header-left">
+                <h3>Organizers Table</h3>
+                <p>Host agencies and event managers (Parent table to Event: 1:N)</p>
+              </div>
+              <div class="card-actions">
+                <button class="btn btn-primary" onclick="openAddOrganizerModal()">+ Add Organizer</button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-filter-bar">
+                <div class="search-box">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  <input type="text" id="searchOrganizers" placeholder="Search organizer name, email, phone...">
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Organizer ID</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Phone</th>
+                      <th>Events Hosted</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="organizersTableBody">
+                    <tr><td colspan="6" class="text-center">Loading...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             4. VENUES SECTION
+             ========================================== -->
+        <section id="section-venues" class="page-section">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-header-left">
+                <h3>Venues Table</h3>
+                <p>Locations, physical auditoriums and seating capacities (Parent to Event: 1:N)</p>
+              </div>
+              <div class="card-actions">
+                <button class="btn btn-primary" onclick="openAddVenueModal()">+ Add Venue</button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-filter-bar">
+                <div class="search-box">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  <input type="text" id="searchVenues" placeholder="Search venue name, location...">
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Venue ID</th>
+                      <th>Venue Name</th>
+                      <th>Location</th>
+                      <th>Seating Capacity</th>
+                      <th>Events Hosted</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="venuesTableBody">
+                    <tr><td colspan="6" class="text-center">Loading...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             5. CATEGORIES SECTION
+             ========================================== -->
+        <section id="section-categories" class="page-section">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-header-left">
+                <h3>Categories Table</h3>
+                <p>Event genres and classifications (Parent to Event: 1:N)</p>
+              </div>
+              <div class="card-actions">
+                <button class="btn btn-primary" onclick="openAddCategoryModal()">+ Add Category</button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-filter-bar">
+                <div class="search-box">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  <input type="text" id="searchCategories" placeholder="Search category name or description...">
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Category ID</th>
+                      <th>Category Name</th>
+                      <th>Description</th>
+                      <th>Total Events</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="categoriesTableBody">
+                    <tr><td colspan="5" class="text-center">Loading...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             6. PARTICIPANTS SECTION
+             ========================================== -->
+        <section id="section-participants" class="page-section">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-header-left">
+                <h3>Participants Table</h3>
+                <p>Registered attendees and students (Parent to Registration: 1:N)</p>
+              </div>
+              <div class="card-actions">
+                <button class="btn btn-primary" onclick="openAddParticipantModal()">+ Add Participant</button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-filter-bar">
+                <div class="search-box">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  <input type="text" id="searchParticipants" placeholder="Search participant name, email, phone...">
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Participant ID</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Phone</th>
+                      <th>Registrations</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="participantsTableBody">
+                    <tr><td colspan="6" class="text-center">Loading...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             7. REGISTRATIONS SECTION
+             ========================================== -->
+        <section id="section-registrations" class="page-section">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-header-left">
+                <h3>Registration Table</h3>
+                <p>Attendee bookings linking Participant (FK) and Event (FK)</p>
+              </div>
+              <div class="card-actions">
+                <button class="btn btn-primary" onclick="openAddRegistrationModal()">+ Register Participant</button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-filter-bar">
+                <div class="filter-group">
+                  <div class="search-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <input type="text" id="searchRegistrations" placeholder="Search participant or event...">
+                  </div>
+                  <select id="filterRegEvent" class="filter-select">
+                    <option value="">All Events</option>
+                  </select>
+                  <select id="filterRegStatus" class="filter-select">
+                    <option value="">All Statuses</option>
+                    <option value="Confirmed">Confirmed</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Cancelled">Cancelled</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="table-responsive">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Reg ID</th>
+                      <th>Participant</th>
+                      <th>Event</th>
+                      <th>Reg Date</th>
+                      <th>Status</th>
+                      <th>Payment Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="registrationsTableBody">
+                    <tr><td colspan="7" class="text-center">Loading...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             8. PAYMENTS SECTION
+             ========================================== -->
+        <section id="section-payments" class="page-section">
+          <!-- Summary Cards -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-info">
+                <h3>Total Collections</h3>
+                <div class="stat-value" id="payTotalAmount">$0.00</div>
+                <div class="stat-meta">Recorded across all payments</div>
+              </div>
+              <div class="stat-icon green">💰</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-info">
+                <h3>Completed</h3>
+                <div class="stat-value" id="payCompletedCount">0</div>
+                <div class="stat-meta">Successful transactions</div>
+              </div>
+              <div class="stat-icon blue">✅</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-info">
+                <h3>Pending</h3>
+                <div class="stat-value" id="payPendingCount">0</div>
+                <div class="stat-meta">Awaiting payment</div>
+              </div>
+              <div class="stat-icon amber">⏳</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-info">
+                <h3>Failed / Refunded</h3>
+                <div class="stat-value" id="payFailedCount">0</div>
+                <div class="stat-meta">Declined charges</div>
+              </div>
+              <div class="stat-icon rose">❌</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-header-left">
+                <h3>Payment Table</h3>
+                <p>1:1 relationship with Registration enforced via UNIQUE constraint</p>
+              </div>
+              <div class="card-actions">
+                <button class="btn btn-primary" onclick="openAddPaymentModal()">+ Record Payment</button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-filter-bar">
+                <div class="filter-group">
+                  <div class="search-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <input type="text" id="searchPayments" placeholder="Search participant, event, or payment ID...">
+                  </div>
+                  <select id="filterPaymentStatus" class="filter-select">
+                    <option value="">All Payment Statuses</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Failed">Failed</option>
+                    <option value="Refunded">Refunded</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="table-responsive">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Payment ID</th>
+                      <th>Registration</th>
+                      <th>Participant</th>
+                      <th>Event</th>
+                      <th>Amount</th>
+                      <th>Payment Date</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="paymentsTableBody">
+                    <tr><td colspan="8" class="text-center">Loading...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             9. REPORTS SECTION
+             ========================================== -->
+        <section id="section-reports" class="page-section">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-header-left">
+                <h3 id="reportActiveTitle">SQL Reports</h3>
+                <p id="reportRowCount">Aggregated multi-table queries</p>
+              </div>
+              <div class="card-actions">
+                <select id="reportTypeSelect" class="filter-select">
+                  <option value="event-report">1. Comprehensive Event Report</option>
+                  <option value="participant-report">2. Participant Registration Report</option>
+                  <option value="payment-report">3. Payment & Financial Report</option>
+                  <option value="organizer-report">4. Organizer Event Report</option>
+                  <option value="venue-report">5. Venue Usage Report</option>
+                  <option value="category-report">6. Category-wise Event Report</option>
+                  <option value="upcoming-events-report">7. Upcoming Events Report</option>
+                </select>
+                <button class="btn btn-secondary btn-sm" onclick="exportCurrentReport()">📥 Export to CSV</button>
+                <button class="btn btn-secondary btn-sm" onclick="printCurrentReport()">🖨️ Print Report</button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="data-table">
+                  <thead id="reportTableHead"></thead>
+                  <tbody id="reportTableBody">
+                    <tr><td colspan="10" class="text-center">Loading report...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             10. DATABASE TABLES PAGE (VERY IMPORTANT)
+             ========================================== -->
+        <section id="section-database-tables" class="page-section">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-header-left">
+                <h3 id="activeDbTableName">Event Table</h3>
+                <p id="activeDbTableRowCount">Live SQL table inspection</p>
+              </div>
+              <div class="card-actions">
+                <button class="btn btn-primary btn-sm" onclick="refreshDbTable()">🔄 Refresh Data from SQL</button>
+              </div>
+            </div>
+            <div class="card-body">
+              
+              <!-- 7 Table Selectors Tabs -->
+              <div id="dbTableTabs" class="db-tabs"></div>
+
+              <!-- Live Schema Column Pills -->
+              <div style="margin-bottom: 0.5rem; font-size: 0.8rem; font-weight: 700; color: var(--text-sub);">
+                Table Schema Definition (Columns, Types & Constraints):
+              </div>
+              <div id="dbSchemaColumnsPreview" class="schema-columns-preview"></div>
+
+              <!-- Filter Bar -->
+              <div class="table-filter-bar">
+                <div class="search-box">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  <input type="text" id="searchDbTable" placeholder="Search across all table columns in SQL...">
+                </div>
+                <div style="font-size: 0.8rem; color: var(--text-muted);">
+                  💡 Click any column header to sort in SQL (ASC / DESC)
+                </div>
+              </div>
+
+              <!-- Live SQL Table -->
+              <div class="table-responsive">
+                <table class="data-table">
+                  <thead id="dbTableThead"></thead>
+                  <tbody id="dbTableTbody">
+                    <tr><td colspan="15" class="text-center">Loading live SQL records...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div id="dbTablePagination" class="pagination-wrapper"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             11. ER DIAGRAM & SCHEMA SECTION
+             ========================================== -->
+        <section id="section-er-diagram" class="page-section">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-header-left">
+                <h3>Entity-Relationship (ER) Diagram</h3>
+                <p>Visual representation of entities, attributes, primary keys, foreign keys and cardinalities</p>
+              </div>
+              <div class="card-actions">
+                <span class="badge badge-primary">7 Entities</span>
+                <span class="badge badge-success">3NF Normalized</span>
+              </div>
+            </div>
+            <div class="card-body">
+              
+              <!-- Visual ER Diagram -->
+              <div class="er-diagram-wrapper">
+                <div class="er-canvas">
+                  
+                  <!-- Entity 1: Organizer -->
+                  <div class="er-entity-card" data-entity="Organizer" onclick="selectEREntity('Organizer')">
+                    <div class="er-entity-header">
+                      <h4>Organizer</h4>
+                      <span class="badge badge-secondary">1:N with Event</span>
+                    </div>
+                    <ul class="er-attributes-list">
+                      <li class="er-attribute-item is-pk">
+                        <span>Organizer_ID</span>
+                        <span class="er-badge pk">PK</span>
+                      </li>
+                      <li class="er-attribute-item"><span>Name</span></li>
+                      <li class="er-attribute-item"><span>Email (UNIQUE)</span></li>
+                      <li class="er-attribute-item"><span>Phone</span></li>
+                    </ul>
+                  </div>
+
+                  <!-- Entity 2: Category -->
+                  <div class="er-entity-card" data-entity="Category" onclick="selectEREntity('Category')">
+                    <div class="er-entity-header">
+                      <h4>Category</h4>
+                      <span class="badge badge-secondary">1:N with Event</span>
+                    </div>
+                    <ul class="er-attributes-list">
+                      <li class="er-attribute-item is-pk">
+                        <span>Category_ID</span>
+                        <span class="er-badge pk">PK</span>
+                      </li>
+                      <li class="er-attribute-item"><span>Category_Name (UNIQUE)</span></li>
+                      <li class="er-attribute-item"><span>Description</span></li>
+                    </ul>
+                  </div>
+
+                  <!-- Entity 3: Venue -->
+                  <div class="er-entity-card" data-entity="Venue" onclick="selectEREntity('Venue')">
+                    <div class="er-entity-header">
+                      <h4>Venue</h4>
+                      <span class="badge badge-secondary">1:N with Event</span>
+                    </div>
+                    <ul class="er-attributes-list">
+                      <li class="er-attribute-item is-pk">
+                        <span>Venue_ID</span>
+                        <span class="er-badge pk">PK</span>
+                      </li>
+                      <li class="er-attribute-item"><span>Venue_Name</span></li>
+                      <li class="er-attribute-item"><span>Location</span></li>
+                      <li class="er-attribute-item"><span>Capacity (CHECK >0)</span></li>
+                    </ul>
+                  </div>
+
+                  <!-- Entity 4: Event (Central) -->
+                  <div class="er-entity-card selected" data-entity="Event" onclick="selectEREntity('Event')" style="grid-column: span 3; border-color: var(--primary);">
+                    <div class="er-entity-header" style="background: var(--primary);">
+                      <h4>Event (Core Entity)</h4>
+                      <span class="badge badge-secondary" style="background: #fff; color: var(--primary);">Holds Foreign Keys</span>
+                    </div>
+                    <ul class="er-attributes-list" style="display: grid; grid-template-columns: repeat(4, 1fr);">
+                      <li class="er-attribute-item is-pk">
+                        <span>Event_ID</span>
+                        <span class="er-badge pk">PK</span>
+                      </li>
+                      <li class="er-attribute-item"><span>Event_Name</span></li>
+                      <li class="er-attribute-item"><span>Date</span></li>
+                      <li class="er-attribute-item"><span>Time</span></li>
+                      <li class="er-attribute-item is-fk">
+                        <span>Organizer_ID</span>
+                        <span class="er-badge fk">FK &rarr; Organizer</span>
+                      </li>
+                      <li class="er-attribute-item is-fk">
+                        <span>Venue_ID</span>
+                        <span class="er-badge fk">FK &rarr; Venue</span>
+                      </li>
+                      <li class="er-attribute-item is-fk">
+                        <span>Category_ID</span>
+                        <span class="er-badge fk">FK &rarr; Category</span>
+                      </li>
+                      <li class="er-attribute-item"><span>1:N with Registration</span></li>
+                    </ul>
+                  </div>
+
+                  <!-- Entity 5: Participant -->
+                  <div class="er-entity-card" data-entity="Participant" onclick="selectEREntity('Participant')">
+                    <div class="er-entity-header">
+                      <h4>Participant</h4>
+                      <span class="badge badge-secondary">1:N with Reg</span>
+                    </div>
+                    <ul class="er-attributes-list">
+                      <li class="er-attribute-item is-pk">
+                        <span>Participant_ID</span>
+                        <span class="er-badge pk">PK</span>
+                      </li>
+                      <li class="er-attribute-item"><span>Name</span></li>
+                      <li class="er-attribute-item"><span>Email (UNIQUE)</span></li>
+                      <li class="er-attribute-item"><span>Phone</span></li>
+                    </ul>
+                  </div>
+
+                  <!-- Entity 6: Registration -->
+                  <div class="er-entity-card" data-entity="Registration" onclick="selectEREntity('Registration')">
+                    <div class="er-entity-header">
+                      <h4>Registration</h4>
+                      <span class="badge badge-secondary">1:1 with Payment</span>
+                    </div>
+                    <ul class="er-attributes-list">
+                      <li class="er-attribute-item is-pk">
+                        <span>Registration_ID</span>
+                        <span class="er-badge pk">PK</span>
+                      </li>
+                      <li class="er-attribute-item is-fk">
+                        <span>Participant_ID</span>
+                        <span class="er-badge fk">FK &rarr; Participant</span>
+                      </li>
+                      <li class="er-attribute-item is-fk">
+                        <span>Event_ID</span>
+                        <span class="er-badge fk">FK &rarr; Event</span>
+                      </li>
+                      <li class="er-attribute-item"><span>Registration_Date</span></li>
+                      <li class="er-attribute-item"><span>Status</span></li>
+                    </ul>
+                  </div>
+
+                  <!-- Entity 7: Payment -->
+                  <div class="er-entity-card" data-entity="Payment" onclick="selectEREntity('Payment')">
+                    <div class="er-entity-header">
+                      <h4>Payment</h4>
+                      <span class="badge badge-secondary">1:1 Dependent</span>
+                    </div>
+                    <ul class="er-attributes-list">
+                      <li class="er-attribute-item is-pk">
+                        <span>Payment_ID</span>
+                        <span class="er-badge pk">PK</span>
+                      </li>
+                      <li class="er-attribute-item is-fk">
+                        <span>Registration_ID</span>
+                        <span class="er-badge fk">FK (UNIQUE 1:1)</span>
+                      </li>
+                      <li class="er-attribute-item"><span>Amount (>= 0)</span></li>
+                      <li class="er-attribute-item"><span>Payment_Date</span></li>
+                      <li class="er-attribute-item"><span>Payment_Status</span></li>
+                    </ul>
+                  </div>
+
+                </div>
+
+                <!-- Relationships Chips -->
+                <div class="relationships-legend">
+                  <h4 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Relational Integrity Rules:</h4>
+                  <div class="relationship-chip">🔗 Organizer (1) &mdash;&mdash;&lt; (N) Event</div>
+                  <div class="relationship-chip">🔗 Category (1) &mdash;&mdash;&lt; (N) Event</div>
+                  <div class="relationship-chip">🔗 Venue (1) &mdash;&mdash;&lt; (N) Event</div>
+                  <div class="relationship-chip">🔗 Event (1) &mdash;&mdash;&lt; (N) Registration</div>
+                  <div class="relationship-chip">🔗 Participant (1) &mdash;&mdash;&lt; (N) Registration</div>
+                  <div class="relationship-chip">🔗 Registration (1) &mdash;&mdash;&mdash; (1) Payment [UNIQUE FK]</div>
+                </div>
+              </div>
+
+              <!-- Inspector Panel for selected entity -->
+              <div style="margin-top: 1.5rem;" id="erInspectorDetails"></div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             12. SQL QUERY CONSOLE SECTION
+             ========================================== -->
+        <section id="section-sql-console" class="page-section">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-header-left">
+                <h3>Interactive SQL Console & DBMS Query Runner</h3>
+                <p>Run real SELECT and JOIN queries directly against the SQL database engine</p>
+              </div>
+              <div class="card-actions">
+                <button class="btn btn-secondary btn-sm" onclick="clearSqlConsole()">Clear</button>
+                <button class="btn btn-primary btn-sm" onclick="runSqlQuery()">▶ Execute Query</button>
+              </div>
+            </div>
+            <div class="card-body">
+              
+              <!-- Presets Grid -->
+              <div style="margin-bottom: 0.5rem; font-size: 0.85rem; font-weight: 700;">
+                Curated DBMS Demonstration Queries (Click any preset to load into editor):
+              </div>
+              <div id="sqlPresetsContainer" class="sql-presets-grid"></div>
+
+              <!-- SQL Textarea Editor -->
+              <div class="sql-editor-container">
+                <textarea id="sqlQueryInput" class="sql-textarea" placeholder="SELECT * FROM Event e JOIN Organizer o ON e.Organizer_ID = o.Organizer_ID;"></textarea>
+                
+                <div class="sql-console-actions">
+                  <div id="sqlResultMeta" style="font-size: 0.825rem; color: var(--text-muted);">
+                    Select a preset above or write a SELECT query and click Execute.
+                  </div>
+                  <div>
+                    <button class="btn btn-primary" onclick="runSqlQuery()">▶ Run SQL Query</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Results Table -->
+              <div style="margin-top: 1.5rem;">
+                <div class="table-responsive">
+                  <table class="data-table">
+                    <thead id="sqlResultThead"></thead>
+                    <tbody id="sqlResultTbody"></tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MODALS & DIALOGS
+       ========================================== -->
+
+  <!-- 1. Event Modal -->
+  <div id="eventModal" class="modal-overlay">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="eventModalTitle">Create New Event</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <form id="eventForm">
+        <div class="modal-body">
+          <input type="hidden" id="eventId">
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label for="eventName">Event Name <span class="required">*</span></label>
+              <input type="text" id="eventName" class="form-control" placeholder="e.g. AI & Cloud Summit 2026" required>
+            </div>
+            <div class="form-group">
+              <label for="eventDate">Date <span class="required">*</span></label>
+              <input type="date" id="eventDate" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="eventTime">Time <span class="required">*</span></label>
+              <input type="text" id="eventTime" class="form-control" placeholder="e.g. 10:00 AM" required>
+            </div>
+            <div class="form-group full-width">
+              <label for="eventOrganizer">Organizer (Foreign Key) <span class="required">*</span></label>
+              <select id="eventOrganizer" class="form-control" required></select>
+            </div>
+            <div class="form-group full-width">
+              <label for="eventVenue">Venue (Foreign Key) <span class="required">*</span></label>
+              <select id="eventVenue" class="form-control" required></select>
+            </div>
+            <div class="form-group full-width">
+              <label for="eventCategory">Category (Foreign Key) <span class="required">*</span></label>
+              <select id="eventCategory" class="form-control" required></select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-modal-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save to SQL Database</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. Organizer Modal -->
+  <div id="organizerModal" class="modal-overlay">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="orgModalTitle">Add Organizer</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <form id="organizerForm">
+        <div class="modal-body">
+          <input type="hidden" id="orgId">
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label for="orgName">Organizer / Organization Name <span class="required">*</span></label>
+              <input type="text" id="orgName" class="form-control" placeholder="e.g. TechNova Innovations" required>
+            </div>
+            <div class="form-group full-width">
+              <label for="orgEmail">Email Address (Unique Key) <span class="required">*</span></label>
+              <input type="email" id="orgEmail" class="form-control" placeholder="contact@example.org" required>
+            </div>
+            <div class="form-group full-width">
+              <label for="orgPhone">Phone Number <span class="required">*</span></label>
+              <input type="text" id="orgPhone" class="form-control" placeholder="+1-555-0100" required>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-modal-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Organizer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. Venue Modal -->
+  <div id="venueModal" class="modal-overlay">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="venueModalTitle">Add Venue</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <form id="venueForm">
+        <div class="modal-body">
+          <input type="hidden" id="venueId">
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label for="venueName">Venue / Hall Name <span class="required">*</span></label>
+              <input type="text" id="venueName" class="form-control" placeholder="e.g. Grand Horizon Convention Center" required>
+            </div>
+            <div class="form-group full-width">
+              <label for="venueLocation">Location Address <span class="required">*</span></label>
+              <input type="text" id="venueLocation" class="form-control" placeholder="e.g. Hall A, 100 Waterfront Blvd" required>
+            </div>
+            <div class="form-group full-width">
+              <label for="venueCapacity">Capacity (Max Seating &gt; 0) <span class="required">*</span></label>
+              <input type="number" id="venueCapacity" class="form-control" min="1" placeholder="500" required>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-modal-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Venue</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. Category Modal -->
+  <div id="categoryModal" class="modal-overlay">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="catModalTitle">Add Category</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <form id="categoryForm">
+        <div class="modal-body">
+          <input type="hidden" id="catId">
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label for="catName">Category Name (Unique Key) <span class="required">*</span></label>
+              <input type="text" id="catName" class="form-control" placeholder="e.g. Technology & AI" required>
+            </div>
+            <div class="form-group full-width">
+              <label for="catDesc">Description</label>
+              <textarea id="catDesc" class="form-control" placeholder="Conferences, hackathons, and workshops..."></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-modal-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Category</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 5. Participant Modal -->
+  <div id="participantModal" class="modal-overlay">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="partModalTitle">Add Participant</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <form id="participantForm">
+        <div class="modal-body">
+          <input type="hidden" id="partId">
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label for="partName">Full Name <span class="required">*</span></label>
+              <input type="text" id="partName" class="form-control" placeholder="e.g. Aarav Sharma" required>
+            </div>
+            <div class="form-group full-width">
+              <label for="partEmail">Email Address (Unique Key) <span class="required">*</span></label>
+              <input type="email" id="partEmail" class="form-control" placeholder="e.g. aarav@example.com" required>
+            </div>
+            <div class="form-group full-width">
+              <label for="partPhone">Phone Number <span class="required">*</span></label>
+              <input type="text" id="partPhone" class="form-control" placeholder="+1-555-0200" required>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-modal-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Participant</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 6. Registration Modal -->
+  <div id="registrationModal" class="modal-overlay">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>Register Participant for Event</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <form id="registrationForm">
+        <div class="modal-body">
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label for="regParticipant">Participant (Foreign Key) <span class="required">*</span></label>
+              <select id="regParticipant" class="form-control" required></select>
+            </div>
+            <div class="form-group full-width">
+              <label for="regEvent">Event (Foreign Key) <span class="required">*</span></label>
+              <select id="regEvent" class="form-control" required></select>
+            </div>
+            <div class="form-group">
+              <label for="regDate">Registration Date <span class="required">*</span></label>
+              <input type="date" id="regDate" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="regStatus">Status <span class="required">*</span></label>
+              <select id="regStatus" class="form-control" required>
+                <option value="Confirmed">Confirmed</option>
+                <option value="Pending">Pending</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+            </div>
+            <div class="form-group full-width">
+              <label for="regAmount">Registration Fee / Amount ($)</label>
+              <input type="number" id="regAmount" class="form-control" step="0.01" min="0" value="100.00" required>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-modal-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary">Register Attendee</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 7. Payment Modal -->
+  <div id="paymentModal" class="modal-overlay">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="paymentModalTitle">Record Payment</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <form id="paymentForm">
+        <div class="modal-body">
+          <input type="hidden" id="payId">
+          <div class="form-grid">
+            <div class="form-group full-width" id="payRegGroup">
+              <label for="payRegistrationId">Registration (1:1 Foreign Key) <span class="required">*</span></label>
+              <select id="payRegistrationId" class="form-control"></select>
+            </div>
+            <div class="form-group">
+              <label for="payAmount">Amount ($) <span class="required">*</span></label>
+              <input type="number" id="payAmount" class="form-control" step="0.01" min="0" required>
+            </div>
+            <div class="form-group">
+              <label for="payDate">Payment Date <span class="required">*</span></label>
+              <input type="date" id="payDate" class="form-control" required>
+            </div>
+            <div class="form-group full-width">
+              <label for="payStatus">Payment Status <span class="required">*</span></label>
+              <select id="payStatus" class="form-control" required>
+                <option value="Completed">Completed</option>
+                <option value="Pending">Pending</option>
+                <option value="Failed">Failed</option>
+                <option value="Refunded">Refunded</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-modal-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Payment Record</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 8. Details Modal (Generic Inspector) -->
+  <div id="detailsModal" class="modal-overlay">
+    <div class="modal-dialog large">
+      <div class="modal-header">
+        <h3 id="detailsModalTitle">Details</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body" id="detailsModalBody"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-modal-cancel">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9. Confirmation Dialog Modal -->
+  <div id="confirmModal" class="modal-overlay">
+    <div class="modal-dialog" style="max-width: 440px;">
+      <div class="modal-header">
+        <h3 id="confirmModalTitle">Confirm Action</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p id="confirmModalMessage" style="font-size: 0.9rem; color: var(--text-sub); line-height: 1.5;"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-modal-cancel">Cancel</button>
+        <button type="button" id="confirmModalOkBtn" class="btn btn-danger">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Scripts -->
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/charts.js"></script>
+  <script src="/static/js/app.js"></script>
+
+</body>
+</html>

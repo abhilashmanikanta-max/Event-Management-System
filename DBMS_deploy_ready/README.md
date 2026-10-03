@@ -1,6 +1,6 @@
-# EVENT MANAGEMENT SYSTEM - College DBMS Project
+# EVENT MANAGEMENT SYSTEM 
 
-A complete, modern, interactive full-stack web application designed for a College Database Management System (DBMS) practical project and viva demonstration.
+A complete, modern, interactive full-stack web application designed by using DBMS.
 
 ---
 
